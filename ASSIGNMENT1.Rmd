@@ -1,0 +1,116 @@
+---
+title: "ASSIGNMENT"
+author: "Gomolemo Thekisho"
+date: "18/11/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r
+#1.1
+
+a <- 5.0
+c <- 10
+t <- 12
+B <- a+c/t
+#The value of B is 5.833333333333
+ 
+#1.1
+vec_1 <- c(44, 5, 0, "k")
+vec_2 <- c(1, 2, 3, FALSE)
+vec_3 <- c("a", "b", "c", TRUE)
+vec_4 <- c(1, 2, 3, "4")
+typeof()
+#vec_1 is character type vector 
+
+#vec_2 is number vector type
+#vec_3 is character vector type
+#vec_4 is character vector type
+
+#1.2
+vec <- c(141.2741, 141.8392, 140.5730,NA, 141.3571, 139.8689, 
+         137.9384, NA,139.6620, 138.2521, 138.8635, 141.3885, NA)
+vec_1 <- subset(vec, vec != is.na(vec))
+#1.2.1 The code subsets the vector vec into a vector vec_1 with no missing 
+#values using the subset() function to conditionally subset the vector vec by 
+#using the condition vec != is.na(vec) which returns values that are not missing valuesn
+#1.2.2
+vec_na <- vec[vec == is.na(vec)]
+#The code returns indexes of the vector vec where the values are NA or missing values
+vec_na
+#1.2.3
+length(vec_na)
+#1.2.4
+#Data Frame using random inputs
+data.frame("Name"=c("Gomolemo", "Remofilwe", "Temosho"),
+           "Surname"= c("Thekisho", "Semaushu", "Mampuru"),
+           "Age"= c(21,23,20),
+            "Gender"= c("Female", "Female", "Male") )
+#2.1
+# input vector
+vec_m <- c(2,5,7,9,11,15)
+
+# Mean of input vector
+vec_m_mean <- mean(vec_m)
+vec_m_mean
+
+# The input vector vec_m is the R object which is the parameter in the generic function mean() for the arithmetic mean
+
+#2.2 
+
+getwd()
+titanic_data <- read.csv(file.choose(),header = TRUE, sep = ",")
+View(titanic_data)
+# The read.csv function reads titanic dataset and assign it to the dataframe titanic_data. The view function returns a matrix like R object which is the content of titanic.csv dataset
+
+#3.1
+g <- c("MALE","FEMALE","FEMALE","MALE","FEMALE","MALE","MALE","FEMALE", "MALE","MALE","FEMALE","MALE","MALE",
+       "FEMALE","MALE","MALE","MALE")
+g_encoded <- function(x){
+  ifelse(x == "MALE",1,2)
+}
+g_encode <- g_encoded(g)
+
+g_encode
+
+#3.2
+x <- rnorm(1000, 120, 5)
+y <- sample(c("M","F"),size = 1000, replace = TRUE)
+
+#3.2.1
+df <- cbind(x,y)
+df
+
+#3.2.2
+df2 <- data.frame(df)
+head(df2)
+}
+
+#3.2.3
+library(tidyverse)
+library(dplyr)
+
+df2 %>% count(y)
+
+#3.2.4
+# assigning the results from 3.2.3 into variable df3
+df3 <- df2 %>% count(y)
+library(ggplot2)
+
+ggplot(data=df3,aes(x=y, y = n)) +
+  geom_bar(stat="identity", color="black", fill="red", width = 0.5 ) +
+  geom_text(aes(label=n), vjust=-0.3, size= 3.5)+
+  ggtitle("Normal Distribution Bar Plot") +
+  ylab("Number of Individuals") +
+  xlab("Male and Female")
+
+#3.2.5
+df4 <- df2 %>% group_by(y) %>% count() %>% mutate(percent_per_sex = n/nrow(df2)*100)
+df4
+
+
+```
+
